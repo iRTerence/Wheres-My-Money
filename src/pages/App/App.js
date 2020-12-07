@@ -5,11 +5,18 @@ import SignupPage from '../SignupPage/SignupPage'
 import userService from '../../utils/userService';
 import NavBar from '../../components/NavBar/NavBar'
 import LoginPage from '../LoginPage/LoginPage'
+import HomePage from '../HomePage/HomePage'
+import Transaction from '../Transaction/Transaction'
 
 class App extends Component {
   constructor() {
     super();
-    this.state = {user: userService.getUser()};
+    this.state = {
+      user: userService.getUser(),
+      assets: 0,
+      debt: 0,
+      
+    };
   }
 
 
@@ -25,6 +32,16 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+          <Route exact path='/' render={({ history }) => 
+            <HomePage
+              history={history}
+            />
+          }/>
+          <Route exact path='/transactions' render={({ history }) => 
+            <Transaction
+              history={history}
+            />
+          }/>
           <Route exact path='/signup' render={({ history }) => 
             <SignupPage
               history={history}
