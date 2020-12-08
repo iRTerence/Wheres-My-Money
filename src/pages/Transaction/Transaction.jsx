@@ -15,8 +15,6 @@ const authAxios = axios.create ({
 
 })
 
-
-
 class Transaction extends Component {
     constructor(props){
         super(props)
@@ -26,21 +24,25 @@ class Transaction extends Component {
 
     }
     
-
-    create = (newTransaction) => {
-        this.setState((prevState) => {
-        console.log(prevState);
-           return {transaction: [ ...prevState.transaction, newTransaction]}
+    remove = (id) => {
+        authAxios.delete(id)
+            .then(res=>console.log(res.data))      
+        this.setState({
+            transaction: this.state.transaction.filter(t => t._id !== id)
         })
     }
 
 
 
+    create = (newTransaction) => {
+        this.setState((prevState) => {
+           return {transaction: [ ...prevState.transaction, newTransaction]}
+        })
+    }
 
     componentDidMount =  () => {
          authAxios.get()
         .then(response => {
-            console.log(response)
             this.setState({transaction: response.data.transactions})
         })
         .catch (function (e) {
@@ -48,17 +50,18 @@ class Transaction extends Component {
         })
     }
 
-
     generateTransactions = () => {
         if (this.state.transaction.length > 0) {
            return this.state.transaction.map(
             transaction => {
-                return <TransactionItem item={transaction} />  
+                return <TransactionItem item={transaction} key={transaction._id} id={transaction._id} remove={this.remove}/>  
             })
     } else {
         return []
         }
     }
+
+
 
     render() {
         return (

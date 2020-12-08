@@ -6,12 +6,11 @@ const auth = require('../../config/auth')
 
 /*---------- Public Routes ----------*/
 
-// router.post('/add', require('../../config/auth'), isLoggedIn, transactionCtrl.addTransaction);
-// router.get('/', require('../../config/auth'), isLoggedIn, transactionCtrl.showTransaction);
 
 /*---------- Protected Routes ----------*/
 router.get('/', transactionCtrl.showTransaction);
 router.post('/add', transactionCtrl.addTransaction);
+router.delete('/:id', transactionCtrl.deleteTransaction);
 
 
 

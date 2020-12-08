@@ -23,7 +23,7 @@ class TransactionForm extends Component {
          }
     }
     componentDidMount() {
-        console.log(this.props.user)
+        
     }
 
     handleChange = (e) => {
