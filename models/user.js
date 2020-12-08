@@ -5,7 +5,7 @@ const SALT_ROUNDS = 6;
 
 const transactionSchema = new mongoose.Schema({
   item: String,
-  value: String,
+  price: Number,
   // date: {type: Date, default: Date.now},
   category: String
 

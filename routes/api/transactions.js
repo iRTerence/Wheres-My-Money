@@ -11,6 +11,7 @@ const auth = require('../../config/auth')
 router.get('/', transactionCtrl.showTransaction);
 router.post('/add', transactionCtrl.addTransaction);
 router.delete('/:id', transactionCtrl.deleteTransaction);
+router.put('/:id', transactionCtrl.updateTransaction);
 
 
 

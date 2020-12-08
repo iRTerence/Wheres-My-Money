@@ -32,7 +32,16 @@ class Transaction extends Component {
         })
     }
 
-
+    update = (id, updatedTransaction) => {
+        const updatedTransactions = this.state.transaction.map(transactions => {
+            if(transactions._id == id) {
+                return{...transactions, transaction: updatedTransaction}
+            }
+            return transactions;
+        })
+        console.log(updatedTransactions)
+        this.setState({ transaction: updatedTransactions})
+    }
 
     create = (newTransaction) => {
         this.setState((prevState) => {
@@ -54,7 +63,13 @@ class Transaction extends Component {
         if (this.state.transaction.length > 0) {
            return this.state.transaction.map(
             transaction => {
-                return <TransactionItem item={transaction} key={transaction._id} id={transaction._id} remove={this.remove}/>  
+                return <TransactionItem 
+                item={transaction} 
+                key={transaction._id} 
+                id={transaction._id} 
+                remove={this.remove}
+                update={this.update}
+                />  
             })
     } else {
         return []

@@ -18,11 +18,11 @@ class TransactionForm extends Component {
         this.state = { 
             item: "",
             price: 0,
-            category: "",
+            category: "Housing",
 
          }
     }
-    componentDidMount() {
+    componentDidUpdate() {
 
     }
 
@@ -40,7 +40,12 @@ class TransactionForm extends Component {
                 console.log(error)
             })
 
-        this.setState({ item : "", price: 0 })
+        this.setState({ 
+            item : "", 
+            price: 0,
+            category: "housing"
+
+        })
     }
     render() {
         return (
