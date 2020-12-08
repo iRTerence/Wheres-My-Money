@@ -23,7 +23,7 @@ class TransactionForm extends Component {
          }
     }
     componentDidMount() {
-        
+
     }
 
     handleChange = (e) => {
@@ -58,7 +58,7 @@ class TransactionForm extends Component {
                     <label> Price </label>
                     <input
                     type='number'
-                    min='0.01'
+                    min='-99999999999999999999'
                     max='999999999999999999999'
                     step='0.01'
                     value={this.state.task}

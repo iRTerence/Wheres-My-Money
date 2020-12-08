@@ -13,23 +13,23 @@ async function addTransaction(req, res) {
 
 
 async function deleteTransaction(req,res) {
-    // User.update({_id: ObjectId(req.user._id)}, 
-    // {$pull: {account: {_id: ObjectId(req.params.id )}}})
+
+    let user = await User.findById(req.user._id)
+    console.log(user.account.transaction)
+    for(i=0; i<user.account.transaction.length; i++) {
+        if(user.account.transaction[i]._id == req.params.id) {
+            user.account.transaction.splice(i,1)
+            user.save()
+            break;
+        }
+    console.log(user)
+    }
 
 
-    // let x = await Transaction.findByIdAndRemove(req.params.id)
-    // .then(() => res.json("Event deleted!"))
-    // .catch(err => res.status(400).json('Error: ' + err));
-    // console.log('This is response' + x)
-
-  let x = await User.findOneAndUpdate({_id: req.user._id}, {
-          account: { 
-              $pull: {
-            transaction: {_id: req.params.id}
-          }
-  }});
-      console.log(x)
 }
+    
+  
+
 
 async function showTransaction(req, res) {
     let id = req.user._id
