@@ -8,26 +8,20 @@ const transactionSchema = new mongoose.Schema({
   value: String,
   // date: {type: Date, default: Date.now},
   category: String
-  // Category: {
-  //   Name: String,
-  //   Budget: {Number, default: 0},
-  // }
 
 })
 
-const accountSchema = new mongoose.Schema({
-  Assets: {type: Number, default: 0},
-  Debt: {type: Number, default: 0},
-  Budget: {type: Number, default: 0},
-  transaction: [transactionSchema]
-})
 
 const userSchema = new mongoose.Schema({
   name: String,
-  email: {type: String, required: true, lowercase: true, unique: true},
-  password: {type: String, required: true},
-  // account: {accountSchema},
-  account: {type: mongoose.Schema.Types.ObjectId, ref: 'accountSchema'}
+  email: {type: String, lowercase: true, unique: true},
+  password: {type: String},
+  account: {
+    Assets: {type: Number, default: 0},
+    Debt: {type: Number, default: 0},
+    Budget: {type: Number, default: 0},
+    transaction: [transactionSchema]
+  },
 }, {
   timestamps: true
 });
@@ -59,5 +53,4 @@ userSchema.methods.comparePassword = function(tryPassword, cb) {
 
 
 module.exports = mongoose.model('Transaction', transactionSchema);
-module.exports = mongoose.model('Account', accountSchema);
 module.exports = mongoose.model('User', userSchema);

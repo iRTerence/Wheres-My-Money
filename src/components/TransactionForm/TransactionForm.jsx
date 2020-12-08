@@ -1,15 +1,29 @@
 import React, { Component } from 'react';
 import axios from 'axios'
+import tokenService from '../../utils/tokenService'
+
+const baseUrl = "/api/transactions/"
+
+const authAxios = axios.create ({
+    baseURL: baseUrl,
+    headers: {
+        Authorization: `Bearer ${tokenService.getToken()}`
+    }
+
+})
 
 class TransactionForm extends Component {
     constructor(props){
         super(props)
         this.state = { 
             item: "",
-            value: 0,
+            price: 0,
             category: "",
 
          }
+    }
+    componentDidMount() {
+        console.log(this.props.user)
     }
 
     handleChange = (e) => {
@@ -20,11 +34,13 @@ class TransactionForm extends Component {
     handleSubmit = (e) => {
         e.preventDefault()
         this.props.create(this.state)
+        authAxios.post("add", this.state)
+            .then(res => console.log(res.user))
+            .catch(function (error) {
+                console.log(error)
+            })
 
-        axios.post('/api/transactions/add', this.state)
-            .then(res => console.log(res.data));
-
-        this.setState({ item : "", price:0 })
+        this.setState({ item : "", price: 0 })
     }
     render() {
         return (

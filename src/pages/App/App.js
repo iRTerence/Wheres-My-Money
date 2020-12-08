@@ -40,6 +40,7 @@ class App extends Component {
           <Route exact path='/transactions' render={({ history }) => 
             <Transaction
               history={history}
+              user={this.state.user}
             />
           }/>
           <Route exact path='/signup' render={({ history }) => 
