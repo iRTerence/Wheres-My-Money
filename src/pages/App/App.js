@@ -35,13 +35,20 @@ class App extends Component {
     this.setState({budget: incBudget})
   }
 
+  updateExpense = (updateExpense) => {
+    this.setState({expenses: updateExpense})
+  }
+
   componentDidMount =  () => {
-    console.log()
     authAxios.get("budgetandexpense")
    .then(response => {
-     console.log(response.data.user.account)
+     let totalExpense = 0
+     response.data.user.account.transaction.forEach(element => 
+      totalExpense = element.price + totalExpense,
+      )
+
        this.setState({
-         expenses: response.data.user.account.Expenses,
+         expenses: totalExpense,
          budget: response.data.user.account.Budget,
 
       })
@@ -75,6 +82,7 @@ class App extends Component {
               history={history}
               user={this.state.user}
               handleBudget={this.submitBudget}
+              handleExpenseUpdate={this.updateExpense}
             />
           }/>
           <Route exact path='/signup' render={({ history }) => 

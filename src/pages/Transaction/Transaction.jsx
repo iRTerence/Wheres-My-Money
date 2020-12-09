@@ -29,6 +29,21 @@ class Transaction extends Component {
 
     }
     
+    // componentDidUpdate = () => {
+    //   authAxios.get("budgetandexpense")
+    //   .then(response => {
+    //     let totalExpense = 0
+    //     response.data.user.account.transaction.forEach(element => 
+    //      totalExpense = element.price + totalExpense,
+    //      )
+          
+    //      this.props.handleExpenseUpdate(totalExpense)
+
+    //   })
+    // }
+
+
+
     remove = (id) => {
         authAxios.delete(id)
             .then(res=>console.log(res.data))      
