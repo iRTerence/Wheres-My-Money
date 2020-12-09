@@ -6,7 +6,7 @@ const SALT_ROUNDS = 6;
 const transactionSchema = new mongoose.Schema({
   item: String,
   price: Number,
-  // date: {type: Date, default: Date.now},
+  date: {type: Date, default: Date.now},
   category: String
 
 })
@@ -17,8 +17,7 @@ const userSchema = new mongoose.Schema({
   email: {type: String, lowercase: true, unique: true},
   password: {type: String},
   account: {
-    Assets: {type: Number, default: 0},
-    Debt: {type: Number, default: 0},
+    Expenses: {type: Number, default: 0},
     Budget: {type: Number, default: 0},
     transaction: [transactionSchema]
   },

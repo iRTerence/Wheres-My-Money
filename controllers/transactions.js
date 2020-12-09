@@ -11,6 +11,11 @@ async function addTransaction(req, res) {
 
 }
 
+async function addBudget (req,res) {
+  let x = await User.findById(req.user._id)
+    x.account.Budget = req.body.budget
+    x.save()
+}
 
 async function deleteTransaction(req,res) {
 
@@ -41,7 +46,14 @@ async function updateTransaction(req,res) {
 
 }
 
-
+async function showBudgetAndExpense(req, res) {
+    let id = req.user._id
+    await User.findById(id).then(user => {
+        res.json({ 
+           user
+        })
+    })
+}
 
 async function showTransaction(req, res) {
     let id = req.user._id
@@ -56,4 +68,6 @@ module.exports = {
     showTransaction,
     deleteTransaction,
     updateTransaction,
+    addBudget,
+    showBudgetAndExpense,
   };

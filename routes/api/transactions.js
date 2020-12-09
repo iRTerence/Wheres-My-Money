@@ -10,8 +10,11 @@ const auth = require('../../config/auth')
 /*---------- Protected Routes ----------*/
 router.get('/', transactionCtrl.showTransaction);
 router.post('/add', transactionCtrl.addTransaction);
+router.post('/budget', transactionCtrl.addBudget);
 router.delete('/:id', transactionCtrl.deleteTransaction);
 router.put('/:id', transactionCtrl.updateTransaction);
+router.get('/budgetandexpense', transactionCtrl.showBudgetAndExpense);
+
 
 
 

@@ -75,6 +75,7 @@ class TransactionItem extends Component {
                     placeholder="Add an Item"
                     name="item"
                     onChange={this.handleChange}
+                    class = "form-control"
                     >
                     </input>
                     <label> Price </label>
