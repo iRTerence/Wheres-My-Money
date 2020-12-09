@@ -107,11 +107,22 @@ class TransactionItem extends Component {
             )
         } else {
             result = (
-            <div>
-                Item: {this.props.item.item} Price: {this.props.item.price} Category: {this.props.item.category} 
+            <>
+
+            <tr>
+              <td>{this.props.item.item}</td>
+              <td>{this.props.item.price}</td>
+              <td>{this.props.item.category}</td>
+              <td><button onClick={this.handleRemove}>Delete</button></td>
+              <td><button onClick={this.toggleForm}>Edit</button></td>
+            </tr>
+
+
+                
+                {/* Item: {this.props.item.item} Price: {this.props.item.price} Category: {this.props.item.category} 
                 <button onClick={this.handleRemove}>Delete</button>
-                <button onClick={this.toggleForm}>Edit</button>
-            </div>
+                <button onClick={this.toggleForm}>Edit</button> */}
+            </>
             )
         }
         return result

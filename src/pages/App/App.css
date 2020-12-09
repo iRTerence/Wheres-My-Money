@@ -1,3 +1,8 @@
+body {
+    font-size: .875rem;
+  }
+  
+
 .App {
   text-align: center;
 }
@@ -36,3 +41,4 @@
     transform: rotate(360deg);
   }
 }
+

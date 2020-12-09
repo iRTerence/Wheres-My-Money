@@ -6,7 +6,7 @@ import userService from '../../utils/userService';
 import NavBar from '../../components/NavBar/NavBar'
 import LoginPage from '../LoginPage/LoginPage'
 import HomePage from '../HomePage/HomePage'
-import Transaction from '../Transaction/Transaction'
+import Transaction from '../Transaction/Transaction.jsx'
 
 class App extends Component {
   constructor() {
@@ -20,7 +20,7 @@ class App extends Component {
   }
 
 
-  
+
   handleLogout = () => {
     userService.logout();
     this.setState({ user: null });
@@ -32,7 +32,9 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
+      <div>
+      <NavBar handleLogout={this.handleLogout} user={this.state.user}/>
+
           <Route exact path='/' render={({ history }) => 
             <HomePage
               history={history}
@@ -50,7 +52,6 @@ class App extends Component {
               handleSignupOrLogin={this.handleSignupOrLogin}
             />
           }/>
-          <NavBar handleLogout={this.handleLogout} user={this.state.user}/>
           <Route exact path='/login' render={({ history }) => 
             <LoginPage
               history={history}
