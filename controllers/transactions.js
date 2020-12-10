@@ -37,11 +37,12 @@ async function updateTransaction(req,res) {
     let money = await User.findById(req.user._id)
     let x  = money.account.transaction
     objIndex = money.account.transaction.findIndex((obj => obj._id == req.params.id))
-    console.log("Before update: ", money.account.transaction[objIndex])
     x[objIndex].item = req.body.item
     x[objIndex].price = req.body.price
     x[objIndex].category = req.body.category
-    money.save()
+    money.save().then(user => {
+        res.json(user)
+    })
 
 
 }

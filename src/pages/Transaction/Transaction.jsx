@@ -7,9 +7,6 @@ import axios from 'axios';
 import tokenService from '../../utils/tokenService'
 import './Transaction.css';
 
-
-
-
 const baseUrl = "/api/transactions/"
 const authAxios = axios.create ({
     baseURL: baseUrl,
@@ -29,18 +26,7 @@ class Transaction extends Component {
 
     }
     
-    // componentDidUpdate = () => {
-    //   authAxios.get("budgetandexpense")
-    //   .then(response => {
-    //     let totalExpense = 0
-    //     response.data.user.account.transaction.forEach(element => 
-    //      totalExpense = element.price + totalExpense,
-    //      )
-          
-    //      this.props.handleExpenseUpdate(totalExpense)
 
-    //   })
-    // }
 
 
 
@@ -52,15 +38,10 @@ class Transaction extends Component {
         })
     }
 
-    update = (id, updatedTransaction) => {
-        const updatedTransactions = this.state.transaction.map(transactions => {
-            if(transactions._id == id) {
-                return{...transactions, transaction: updatedTransaction}
-            }
-            return transactions;
-        })
-        console.log(updatedTransactions)
-        this.setState({ transaction: updatedTransactions})
+
+    update = async (updatedTransaction) => {
+
+        this.setState({ transaction: updatedTransaction})
     }
 
     create = (newTransaction) => {
@@ -89,6 +70,9 @@ class Transaction extends Component {
                 id={transaction._id} 
                 remove={this.remove}
                 update={this.update}
+                handleExpenseUpdate={this.props.handleExpenseUpdate} 
+                transactions={this.state.transaction}
+
                 />  
             })
     } else {
@@ -144,8 +128,13 @@ class Transaction extends Component {
         </div>
       </div>
       <BudgetForm handleBudget={this.props.handleBudget}/>
-      <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
-     <TransactionForm create={this.create} user={this.props.user}/>
+      <canvas class="my-4 w-100" id="myChart" width="900" height="200"></canvas>
+     <TransactionForm 
+     create={this.create} 
+     user={this.props.user} 
+     handleExpenseUpdate={this.props.handleExpenseUpdate} 
+     transactions={this.state.transaction}
+     />
       <h2>Transactions</h2>
       <div class="table-responsive">
         <table class="table table-striped table-sm">
@@ -154,6 +143,7 @@ class Transaction extends Component {
               <th>Item</th>
               <th>Price</th>
               <th>Category</th>
+              <th>Date</th>
               <th>Delete</th>
               <th>Edit</th>
             </tr>

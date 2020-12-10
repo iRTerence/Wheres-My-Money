@@ -18,9 +18,9 @@ class TransactionItem extends Component {
         super(props)
         this.state = {
             isEditing: false,
-            item: "",
-            price: "",
-            category: "",
+            item: this.props.item.item,
+            price: this.props.item.price,
+            category: this.props.item.category
         }
     }
 
@@ -37,21 +37,28 @@ class TransactionItem extends Component {
         })
     }
 
-    handleUpdate = (e) => {
+    handleUpdate = async (e) => {
         e.preventDefault()
+        let totalExpense = 0
         let transaction =  {
             item: this.state.item,
             price: this.state.price,
             category: this.state.category,
         }
 
-        this.props.update(this.props.id, this.state.transaction)
         this.setState({ isEditing: false })
 
 
-        authAxios.put(this.props.id, transaction)      
+       authAxios.put(this.props.id, transaction)      
         .then((res) => {
-            console.log(res.data)
+            this.props.update(res.data.account.transaction)
+
+            this.props.transactions.forEach(element => 
+                totalExpense = parseInt(element.price) + parseInt(totalExpense),
+                )
+                console.log(totalExpense)
+           
+                this.props.handleExpenseUpdate(totalExpense)
             console.log('Transaction successfully updated')
           }).catch((error) => {
             console.log(error)
@@ -71,7 +78,7 @@ class TransactionItem extends Component {
                     <label>Item:</label>
                     <input
                     type='text'
-                    value={this.state.task}
+                    value={this.state.item}
                     placeholder="Add an Item"
                     name="item"
                     onChange={this.handleChange}
@@ -84,7 +91,7 @@ class TransactionItem extends Component {
                     min='-99999999999999999999'
                     max='999999999999999999999'
                     step='0.01'
-                    value={this.state.task}
+                    value={this.state.price}
                     placeholder="Item Price"
                     name="price"
                     onChange={this.handleChange}
@@ -114,15 +121,14 @@ class TransactionItem extends Component {
               <td>{this.props.item.item}</td>
               <td>{this.props.item.price}</td>
               <td>{this.props.item.category}</td>
+              <td>{this.props.item.date}</td>
               <td><button onClick={this.handleRemove}>Delete</button></td>
               <td><button onClick={this.toggleForm}>Edit</button></td>
             </tr>
 
 
                 
-                {/* Item: {this.props.item.item} Price: {this.props.item.price} Category: {this.props.item.category} 
-                <button onClick={this.handleRemove}>Delete</button>
-                <button onClick={this.toggleForm}>Edit</button> */}
+
             </>
             )
         }

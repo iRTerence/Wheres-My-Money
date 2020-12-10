@@ -19,34 +19,47 @@ class TransactionForm extends Component {
             item: "",
             price: 0,
             category: "Housing",
+            date: null
 
          }
     }
-    componentDidUpdate() {
 
-    }
 
     handleChange = (e) => {
         this.setState({
             [e.target.name] : e.target.value
         })
     }
-    handleSubmit = (e) => {
+    handleSubmit = async (e) => {
         e.preventDefault()
-        this.props.create(this.state)
+        let totalExpense = 0
+        await this.props.create(this.state)
         authAxios.post("add", this.state)
             .then(res => console.log(res.user))
             .catch(function (error) {
                 console.log(error)
             })
 
+        this.props.transactions.forEach(element => 
+            totalExpense = parseInt(element.price) + parseInt(totalExpense),
+            )
+            console.log(totalExpense)
+       
+            this.props.handleExpenseUpdate(totalExpense)
+
+
         this.setState({ 
             item : "", 
             price: 0,
-            category: "housing"
+            category: "housing",
+            date: null
 
         })
     }
+
+
+
+
     render() {
         return (
             <div>
@@ -88,6 +101,15 @@ class TransactionForm extends Component {
                         <option value="Recreation">Recreation</option>
                         <option value="Misc">Misc</option>
                     </select>
+                    <input 
+                    type="date" 
+                    id="start" 
+                    name="trip-start"
+                    onChange={this.handleChange} 
+                    value={this.state.task}
+                    name="date"
+                    id="date"/>
+
                 <button>Add</button>
 
                 </form>
