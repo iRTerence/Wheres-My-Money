@@ -3,10 +3,11 @@ const Transaction = require('../models/user');
 
 const mongoose = require('mongoose');
 
-async function addTransaction(req, res) {
-    User.findById(req.user._id, function(err, user) {
+function addTransaction(req, res) {
+    User.findById(req.user._id, async function(err, user) {
         user.account.transaction.push(req.body);
-        user.save()
+        let saved = await user.save()
+        res.send(saved)
     });
 
 }
@@ -14,7 +15,8 @@ async function addTransaction(req, res) {
 async function addBudget (req,res) {
   let x = await User.findById(req.user._id)
     x.account.Budget = req.body.budget
-    x.save()
+    let saved = await x.save()
+    res.send(saved)
 }
 
 async function deleteTransaction(req,res) {
@@ -23,11 +25,12 @@ async function deleteTransaction(req,res) {
     for(i=0; i<user.account.transaction.length; i++) {
         if(user.account.transaction[i]._id == req.params.id) {
             user.account.transaction.splice(i,1)
-            user.save()
+            let saved = await user.save()
+            res.send(saved)
             break;
-        }
+        } 
     }
-
+        res.send('Transactionitem was not deleted')
 }
 
 

@@ -33,28 +33,28 @@ class TransactionForm extends Component {
     handleSubmit = async (e) => {
         e.preventDefault()
         let totalExpense = 0
+        try {
+
+     
         await this.props.create(this.state)
-        authAxios.post("add", this.state)
-            .then(res => console.log(res.user))
-            .catch(function (error) {
-                console.log(error)
-            })
+        await authAxios.post("add", this.state)
 
         this.props.transactions.forEach(element => 
             totalExpense = parseInt(element.price) + parseInt(totalExpense),
             )
-       
             this.props.handleExpenseUpdate(totalExpense)
-
 
         this.setState({ 
             item : "", 
             price: 0,
             category: "housing",
             date: null
-
+   
         })
+    } catch(error) {
+        console.log(error)
     }
+}
 
 
 

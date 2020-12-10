@@ -9,7 +9,7 @@ import tokenService from '../../utils/tokenService'
 import './Transaction.css';
 
 
-const baseUrl = "/api/transactions/"
+const baseUrl = "/api/transactions/" 
 const authAxios = axios.create ({
     baseURL: baseUrl,
     headers: {
@@ -42,7 +42,6 @@ class Transaction extends Component {
 
 
     update = async (updatedTransaction) => {
-
         this.setState({ transaction: updatedTransaction})
     }
 
@@ -52,31 +51,26 @@ class Transaction extends Component {
         })
     }
 
-    componentDidMount = async () => {
+    componentWillMount = async () => {
+       let x = await authAxios.get()
 
-        await authAxios.get()
-        .then(response => {
-            this.setState({transaction: response.data.transactions})
-        })
-        .catch (function (e) {
-            console.log(e)
-        })
-
+          console.log(x.data.transactions)
+          this.setState({transaction: x.data.transactions})
 
 
     }
 
-    generateCategorySum = () => {
-      var sums = {}, obj, i;
-      for (i = 0; i < this.state.transaction.length; i++){
-          obj = this.state.transaction[i];
-          if (!sums[obj.category]) {
-              sums[obj.category] = 0;
-          }
-          sums[obj.category] += +obj.price;
-      }
-      return sums
-    }
+    // generateCategorySum = () => {
+    //   var sums = {}, obj, i;
+    //   for (i = 0; i < this.state.transaction.length; i++){
+    //       obj = this.state.transaction[i];
+    //       if (!sums[obj.category]) {
+    //           sums[obj.category] = 0;
+    //       }
+    //       sums[obj.category] += +obj.price;
+    //   }
+    //   return sums
+    // }
 
     generateTransactions = () => {
         if (this.state.transaction.length > 0) {
@@ -151,7 +145,6 @@ class Transaction extends Component {
         transactions={this.state.transaction}
         budget={this.props.budget}
         expense={this.props.expense}
-        totals={this.generateCategorySum()}
       />
       <canvas class="my-4 w-100" id="myChart" width="1000" height="0">
         

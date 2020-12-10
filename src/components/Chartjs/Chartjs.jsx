@@ -13,17 +13,17 @@ class Chartjs extends Component {
                     {
                         label: 'Budget',
                         data:[
-                            this.props.totals.Housing,
-                            this.props.totals.Transportation,
-                            this.props.totals.Food,
-                            this.props.totals.Utilities,
-                            this.props.totals.Insurance,
-                            this.props.totals.Health,
-                            this.props.totals.Debt,
-                            this.props.totals.Personal,
-                            this.props.totals.Recreation,
-                            this.props.totals.Misc,
-                            this.props.budget-this.props.expense,
+                            0,
+                            0,
+                            0,
+                            0,
+                            9,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
                         ],
                         backgroundColor:[
                             'red',
@@ -45,8 +45,31 @@ class Chartjs extends Component {
                 ]
             }
         }
-        console.log(this.props.budget)
-        // console.log(this.props.expense)
+        // console.log(this.props.budget)
+    }
+
+    generateCategorySum = async () => {
+        console.log('start' + this.props.transactions)
+        var sums = {}, obj, i;
+        for (i = 0; i < this.props.transactions.length; i++){
+            obj = this.props.transactions[i];
+            console.log(obj)
+            if (!sums[obj.category]) {
+                sums[obj.category] = 0;
+            }
+            sums[obj.category] += +obj.price;
+        }
+        var newState = this.state.chartData.datasets[0].data
+        newState = [sums.Housing, sums.Transportation, sums.Food, sums.Utilities, sums.Insurance, sums.Health, sums.Debt, sums.Personal, sums.Recreation, sums.Misc, sums.Budget]
+        console.log(newState)
+        this.setState(newState)
+        // console.log(sums)
+        return sums
+      }
+
+
+    async componentDidMount(){
+       await this.generateCategorySum()
     }
 
 
