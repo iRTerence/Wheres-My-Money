@@ -83,6 +83,8 @@ class App extends Component {
               user={this.state.user}
               handleBudget={this.submitBudget}
               handleExpenseUpdate={this.updateExpense}
+              budget={this.state.budget}
+              expense={this.state.expenses}
             />
           }/>
           <Route exact path='/signup' render={({ history }) => 

@@ -19,7 +19,7 @@ class TransactionForm extends Component {
             item: "",
             price: 0,
             category: "Housing",
-            date: null
+            date: ""
 
          }
     }
@@ -43,7 +43,6 @@ class TransactionForm extends Component {
         this.props.transactions.forEach(element => 
             totalExpense = parseInt(element.price) + parseInt(totalExpense),
             )
-            console.log(totalExpense)
        
             this.props.handleExpenseUpdate(totalExpense)
 
@@ -108,7 +107,8 @@ class TransactionForm extends Component {
                     onChange={this.handleChange} 
                     value={this.state.task}
                     name="date"
-                    id="date"/>
+                    id="date"
+                    required/>
 
                 <button>Add</button>
 

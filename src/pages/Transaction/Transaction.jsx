@@ -52,14 +52,30 @@ class Transaction extends Component {
         })
     }
 
-    componentDidMount =  () => {
-         authAxios.get()
+    componentDidMount = async () => {
+
+        await authAxios.get()
         .then(response => {
             this.setState({transaction: response.data.transactions})
         })
         .catch (function (e) {
             console.log(e)
         })
+
+
+
+    }
+
+    generateCategorySum = () => {
+      var sums = {}, obj, i;
+      for (i = 0; i < this.state.transaction.length; i++){
+          obj = this.state.transaction[i];
+          if (!sums[obj.category]) {
+              sums[obj.category] = 0;
+          }
+          sums[obj.category] += +obj.price;
+      }
+      return sums
     }
 
     generateTransactions = () => {
@@ -131,7 +147,12 @@ class Transaction extends Component {
         </div>
       </div>
       <BudgetForm handleBudget={this.props.handleBudget}/>
-      <Chartjs width="30%"/>
+      <Chartjs 
+        transactions={this.state.transaction}
+        budget={this.props.budget}
+        expense={this.props.expense}
+        totals={this.generateCategorySum()}
+      />
       <canvas class="my-4 w-100" id="myChart" width="1000" height="0">
         
       </canvas>

@@ -13,18 +13,17 @@ class Chartjs extends Component {
                     {
                         label: 'Budget',
                         data:[
-                            400,
-                            123,
-                            456,
-                            321,
-                            896,
-                            238,
-                            421,
-                            368,
-                            111,
-                            401,
-                            212,
-                            
+                            this.props.totals.Housing,
+                            this.props.totals.Transportation,
+                            this.props.totals.Food,
+                            this.props.totals.Utilities,
+                            this.props.totals.Insurance,
+                            this.props.totals.Health,
+                            this.props.totals.Debt,
+                            this.props.totals.Personal,
+                            this.props.totals.Recreation,
+                            this.props.totals.Misc,
+                            this.props.budget-this.props.expense,
                         ],
                         backgroundColor:[
                             'red',
@@ -46,7 +45,11 @@ class Chartjs extends Component {
                 ]
             }
         }
+        console.log(this.props.budget)
+        // console.log(this.props.expense)
     }
+
+
 
     render() {
         return (

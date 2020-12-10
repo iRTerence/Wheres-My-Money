@@ -20,18 +20,17 @@ async function addBudget (req,res) {
 async function deleteTransaction(req,res) {
 
     let user = await User.findById(req.user._id)
-    console.log(user.account.transaction)
     for(i=0; i<user.account.transaction.length; i++) {
         if(user.account.transaction[i]._id == req.params.id) {
             user.account.transaction.splice(i,1)
             user.save()
             break;
         }
-    console.log(user)
     }
 
-
 }
+
+
     
 async function updateTransaction(req,res) {
     let money = await User.findById(req.user._id)
