@@ -36,8 +36,8 @@ class TransactionForm extends Component {
         try {
 
      
-        await this.props.create(this.state)
-        await authAxios.post("add", this.state)
+     let x =  await authAxios.post("add", this.state)
+     await this.props.create(x.data.account.transaction[x.data.account.transaction.length-1])
 
         this.props.transactions.forEach(element => 
             totalExpense = parseInt(element.price) + parseInt(totalExpense),
@@ -48,7 +48,7 @@ class TransactionForm extends Component {
             item : "", 
             price: 0,
             category: "housing",
-            date: null
+            date: ""
    
         })
     } catch(error) {
@@ -91,11 +91,11 @@ class TransactionForm extends Component {
                     <select value={this.state.category} onChange={this.handleChange} name="category">
                         <option value="Housing">Housing</option>
                         <option value="Transportation">Transportation</option>
-                        <option selected value="Food">Food</option>
+                        <option value="Food">Food</option>
                         <option value="Utilities">Utilities</option>
                         <option value="Insurance">Insurance</option>
                         <option value="Health">Health</option>
-                        <option selected value="Debt">Debt</option>
+                        <option defaultValue="Debt">Debt</option>
                         <option value="Personal">Personal Spending</option>
                         <option value="Recreation">Recreation</option>
                         <option value="Misc">Misc</option>

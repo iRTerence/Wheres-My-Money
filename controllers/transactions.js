@@ -7,6 +7,7 @@ function addTransaction(req, res) {
     User.findById(req.user._id, async function(err, user) {
         user.account.transaction.push(req.body);
         let saved = await user.save()
+        console.log(saved.data)
         res.send(saved)
     });
 

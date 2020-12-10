@@ -7,6 +7,7 @@ import Chartjs from '../../components/Chartjs/Chartjs'
 import axios from 'axios';
 import tokenService from '../../utils/tokenService'
 import './Transaction.css';
+import Loader from "react-loader-spinner";
 
 
 const baseUrl = "/api/transactions/" 
@@ -23,18 +24,61 @@ class Transaction extends Component {
         super(props)
         this.state = {
             transaction: [],
+            isLoading: true,
+            chartData: {}
             
         }
 
     }
     
-
+    // getChartData(){
+    //   this.setState({
+    //     chartData: {
+    //       labels: [ 'Housing', 'Transportation', 'Food', 'Utilities', 'Insurance',
+    //       'Health', 'Debt', 'Personal Spending', 'Recreation', 'Misc',
+    //       ],
+    //       datasets: [
+    //           {
+    //               label: 'Budget',
+    //               data:[
+    //                 generateCategorySum().housing,
+    //                   this.props.category.Transportation,
+    //                   this.props.category.Food,
+    //                   this.props.category.Utilities,
+    //                   this.props.category.Insurance,
+    //                   this.props.category.Health,
+    //                   this.props.category.Debt,
+    //                   this.props.category.Personal,
+    //                   this.props.category.Recreation,
+    //                   this.props.category.Misc,
+    //               ],
+    //               backgroundColor:[
+    //                   'red',
+    //                   'purple',
+    //                   'black',
+    //                   'yellow',
+    //                   'pink',
+    //                   'blue',
+    //                   'orange',
+    //                   'grey',
+    //                   'silver',
+    //                   'teal',
+    //                   'green'
+    //               ],
+    //               borderWidth:1,
+    //               borderColor:"black",
+    //               hoverBorderWidth: 4
+    //           }
+    //       ]
+    //   }
+    //   })
+    // }
 
 
 
     remove = (id) => {
-        authAxios.delete(id)
-            .then(res=>console.log(res.data))      
+      authAxios.delete(id)
+      .then(res=>console.log(res.data))      
         this.setState({
             transaction: this.state.transaction.filter(t => t._id !== id)
         })
@@ -51,27 +95,27 @@ class Transaction extends Component {
         })
     }
 
+
+
+    generateCategorySum = () => {
+      var sums = {}, obj, i;
+      for (i = 0; i < this.state.transaction.length; i++){
+          obj = this.state.transaction[i];
+          if (!sums[obj.category]) {
+              sums[obj.category] = 0;
+          }
+          sums[obj.category] += +obj.price;
+      }
+      return sums
+    }
+
     componentWillMount = async () => {
        let x = await authAxios.get()
-
-          console.log(x.data.transactions)
-          this.setState({transaction: x.data.transactions})
+          this.setState({transaction: x.data.transactions,
+          isLoading: false})
 
 
     }
-
-    // generateCategorySum = () => {
-    //   var sums = {}, obj, i;
-    //   for (i = 0; i < this.state.transaction.length; i++){
-    //       obj = this.state.transaction[i];
-    //       if (!sums[obj.category]) {
-    //           sums[obj.category] = 0;
-    //       }
-    //       sums[obj.category] += +obj.price;
-    //   }
-    //   return sums
-    // }
-
     generateTransactions = () => {
         if (this.state.transaction.length > 0) {
            return this.state.transaction.map(
@@ -100,7 +144,9 @@ class Transaction extends Component {
         <div>
             
 <div class="container-fluid">
-  <div class="row">
+  {this.state.isLoading
+  ? <Loader type="Puff" color="#00BFFF" height="800" width="800" />
+  :<div class="row">
     <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
       <div class="position-sticky pt-3">
         <ul class="nav flex-column">
@@ -145,6 +191,8 @@ class Transaction extends Component {
         transactions={this.state.transaction}
         budget={this.props.budget}
         expense={this.props.expense}
+        category={this.generateCategorySum()}
+        rerender={this.generateCategorySum}
       />
       <canvas class="my-4 w-100" id="myChart" width="1000" height="0">
         
@@ -177,6 +225,7 @@ class Transaction extends Component {
       </div>
     </main>
   </div>
+    }
 </div>
 
         </div>

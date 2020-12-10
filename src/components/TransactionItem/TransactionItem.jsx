@@ -24,8 +24,14 @@ class TransactionItem extends Component {
         }
     }
 
-    handleRemove = () => {
+    handleRemove = async () => {
+        let totalExpense=0
         this.props.remove(this.props.id)
+                this.props.transactions.forEach(element => 
+                totalExpense = parseInt(element.price) + parseInt(totalExpense),
+                )
+                console.log(totalExpense)
+                this.props.handleExpenseUpdate(totalExpense)
     }
     toggleForm = () => {
         this.setState({ isEditing: !this.state.isEditing })

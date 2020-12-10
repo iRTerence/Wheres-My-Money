@@ -7,23 +7,22 @@ class Chartjs extends Component {
         this.state = {
             chartData: {
                 labels: [ 'Housing', 'Transportation', 'Food', 'Utilities', 'Insurance',
-                'Health', 'Debt', 'Personal Spending', 'Recreation', 'Misc', 'Remaining Budget'
+                'Health', 'Debt', 'Personal Spending', 'Recreation', 'Misc',
                 ],
                 datasets: [
                     {
                         label: 'Budget',
                         data:[
-                            0,
-                            0,
-                            0,
-                            0,
-                            9,
-                            0,
-                            0,
-                            0,
-                            0,
-                            0,
-                            0,
+                            this.props.category.Housing,
+                            this.props.category.Transportation,
+                            this.props.category.Food,
+                            this.props.category.Utilities,
+                            this.props.category.Insurance,
+                            this.props.category.Health,
+                            this.props.category.Debt,
+                            this.props.category.Personal,
+                            this.props.category.Recreation,
+                            this.props.category.Misc,
                         ],
                         backgroundColor:[
                             'red',
@@ -45,15 +44,13 @@ class Chartjs extends Component {
                 ]
             }
         }
-        // console.log(this.props.budget)
+        // console.log(this.props.category)
     }
 
     generateCategorySum = async () => {
-        console.log('start' + this.props.transactions)
         var sums = {}, obj, i;
         for (i = 0; i < this.props.transactions.length; i++){
             obj = this.props.transactions[i];
-            console.log(obj)
             if (!sums[obj.category]) {
                 sums[obj.category] = 0;
             }
@@ -61,14 +58,16 @@ class Chartjs extends Component {
         }
         var newState = this.state.chartData.datasets[0].data
         newState = [sums.Housing, sums.Transportation, sums.Food, sums.Utilities, sums.Insurance, sums.Health, sums.Debt, sums.Personal, sums.Recreation, sums.Misc, sums.Budget]
-        console.log(newState)
-        this.setState(newState)
-        // console.log(sums)
+        this.setState(state => {
+            state.chartData.datasets[0].data = newState
+        })
+        console.log(sums)
         return sums
       }
 
 
-    async componentDidMount(){
+
+    async componentDidUpdate(){
        await this.generateCategorySum()
     }
 
