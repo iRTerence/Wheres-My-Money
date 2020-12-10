@@ -69,7 +69,7 @@ class App extends Component {
 
   render() {
     return (
-      <div>
+      <div className="App">
       <NavBar handleLogout={this.handleLogout} user={this.state.user}/>
 
           <Route exact path='/' render={({ history }) => 

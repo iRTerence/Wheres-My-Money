@@ -3,9 +3,11 @@ import { Link } from 'react-router-dom';
 import TransactionItem from '../../components/TransactionItem/TransactionItem'
 import TransactionForm from '../../components/TransactionForm/TransactionForm'
 import BudgetForm from '../../components/BudgetForm/BudgetForm'
+import Chartjs from '../../components/Chartjs/Chartjs'
 import axios from 'axios';
 import tokenService from '../../utils/tokenService'
 import './Transaction.css';
+
 
 const baseUrl = "/api/transactions/"
 const authAxios = axios.create ({
@@ -83,6 +85,7 @@ class Transaction extends Component {
 
 
     render() {
+      
         return (
         <div>
             
@@ -128,7 +131,11 @@ class Transaction extends Component {
         </div>
       </div>
       <BudgetForm handleBudget={this.props.handleBudget}/>
-      <canvas class="my-4 w-100" id="myChart" width="900" height="200"></canvas>
+      <Chartjs width="30%"/>
+      <canvas class="my-4 w-100" id="myChart" width="1000" height="0">
+        
+      </canvas>
+      
      <TransactionForm 
      create={this.create} 
      user={this.props.user} 
