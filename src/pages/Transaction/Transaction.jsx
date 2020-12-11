@@ -43,7 +43,7 @@ class Transaction extends Component {
     //               data:[
     //                 generateCategorySum().housing,
     //                   this.props.category.Transportation,
-    //                   this.props.category.Food,
+    //                   fthis.props.category.Food,
     //                   this.props.category.Utilities,
     //                   this.props.category.Insurance,
     //                   this.props.category.Health,
