@@ -7,11 +7,21 @@ module.exports = {
   login
 };
 
+function createJWT(user) {
+  return jwt.sign(
+    {user}, // data payload
+    SECRET,
+    {expiresIn: '6d'}
+  );
+
+}
+
 async function signup(req, res) {
   const user = new User(req.body);
   try {
     await user.save();
     const token = createJWT(user);
+    console.log(token)
     res.json({ token });
   } catch (err) {
     // Probably a duplicate email
@@ -38,10 +48,3 @@ async function login(req, res) {
 
 /*----- Helper Functions -----*/
 
-function createJWT(user) {
-  return jwt.sign(
-    {user}, // data payload
-    SECRET,
-    {expiresIn: '24h'}
-  );
-}

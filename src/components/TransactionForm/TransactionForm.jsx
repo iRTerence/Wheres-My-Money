@@ -63,7 +63,8 @@ class TransactionForm extends Component {
         return (
             <div>
                 <form onSubmit={this.handleSubmit}>
-                    <label for="item">Item:</label>
+                    <div className="form-row">
+                    <div className="col form-group">
                     <input
                     type='text'
                     value={this.state.task}
@@ -74,7 +75,8 @@ class TransactionForm extends Component {
                     required
                     >
                     </input>
-                    <label for="price"> Price </label>
+                    </div>
+                    <div className="col form-group">
                     <input
                     type='number'
                     min='-99999999999999999999'
@@ -87,7 +89,10 @@ class TransactionForm extends Component {
                     onChange={this.handleChange}
                     required
                     >
+                    
                     </input>
+                    </div>
+                    
                     <select value={this.state.category} onChange={this.handleChange} name="category">
                         <option value="Housing">Housing</option>
                         <option value="Transportation">Transportation</option>
@@ -110,8 +115,8 @@ class TransactionForm extends Component {
                     id="date"
                     required/>
 
-                <button>Add</button>
-
+             <div><button className="btn-success">Add</button></div>   
+                </div>
                 </form>
                 
             </div>

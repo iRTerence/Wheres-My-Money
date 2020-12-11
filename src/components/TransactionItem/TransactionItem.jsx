@@ -73,7 +73,7 @@ class TransactionItem extends Component {
 
     }
 
-    
+
 
     render() {
         let result;
@@ -129,7 +129,7 @@ class TransactionItem extends Component {
               <td>{this.props.item.item}</td>
               <td>{this.props.item.price}</td>
               <td>{this.props.item.category}</td>
-              <td>{strDate.substring(0, 10)}</td>
+              {/* <td>{strDate.substring(0, 10)}</td> */}
               <td><button onClick={this.handleRemove}>Delete</button></td>
               <td><button onClick={this.toggleForm}>Edit</button></td>
             </tr>
