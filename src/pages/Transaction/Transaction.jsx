@@ -25,54 +25,10 @@ class Transaction extends Component {
         this.state = {
             transaction: [],
             isLoading: true,
-            chartData: {}
             
         }
 
     }
-    
-    // getChartData(){
-    //   this.setState({
-    //     chartData: {
-    //       labels: [ 'Housing', 'Transportation', 'Food', 'Utilities', 'Insurance',
-    //       'Health', 'Debt', 'Personal Spending', 'Recreation', 'Misc',
-    //       ],
-    //       datasets: [
-    //           {
-    //               label: 'Budget',
-    //               data:[
-    //                 generateCategorySum().housing,
-    //                   this.props.category.Transportation,
-    //                   fthis.props.category.Food,
-    //                   this.props.category.Utilities,
-    //                   this.props.category.Insurance,
-    //                   this.props.category.Health,
-    //                   this.props.category.Debt,
-    //                   this.props.category.Personal,
-    //                   this.props.category.Recreation,
-    //                   this.props.category.Misc,
-    //               ],
-    //               backgroundColor:[
-    //                   'red',
-    //                   'purple',
-    //                   'black',
-    //                   'yellow',
-    //                   'pink',
-    //                   'blue',
-    //                   'orange',
-    //                   'grey',
-    //                   'silver',
-    //                   'teal',
-    //                   'green'
-    //               ],
-    //               borderWidth:1,
-    //               borderColor:"black",
-    //               hoverBorderWidth: 4
-    //           }
-    //       ]
-    //   }
-    //   })
-    // }
 
 
 
@@ -137,12 +93,13 @@ class Transaction extends Component {
     }
 
 
-
+    
     render() {
       
         return (
         <div>
-            
+
+
 <div class="container-fluid">
   {this.state.isLoading
   ? <Loader type="Puff" color="#00BFFF" height="800" width="800" />
@@ -162,31 +119,21 @@ class Transaction extends Component {
               Transaction
             </a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              <span data-feather="shopping-cart"></span>
-              Budgets
-            </a>
-          </li>
         </ul>
       </div>
     </nav>
             
     <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
       <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">Transactions</h1>
+        <h1 class="h2">Where is your money?</h1>
         <div class="btn-toolbar mb-2 mb-md-0">
-          <div class="btn-group me-2">
-            <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
-            <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
-          </div>
           <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
             <span data-feather="calendar"></span>
-            This week
+            This Month
           </button>
         </div>
       </div>
-      <BudgetForm handleBudget={this.props.handleBudget}/>
+      {/* <BudgetForm handleBudget={this.props.handleBudget}/> */}
       <Chartjs 
         transactions={this.state.transaction}
         budget={this.props.budget}
